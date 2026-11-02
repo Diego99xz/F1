@@ -117,3 +117,9 @@ poetry run task docs
 `test` mede a cobertura de `f1` e falha se ficar abaixo de 50%; os testes usam
 transporte HTTP simulado e não dependem da API. `lint` executa Ruff,
 `format` aplica sua formatação e `docs` valida o site MkDocs em modo estrito.
+
+## Integração contínua
+
+O GitHub Actions executa testes, lint e build estrito da documentação em pushes,
+pull requests e também pode ser acionado manualmente. A pipeline usa Python
+3.13.7 e instala as dependências do grupo `dev` com Poetry.

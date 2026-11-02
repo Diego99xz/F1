@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Tests, lint, and documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13.7"
+
+      - name: Install Poetry
+        run: pipx install poetry==2.5.1
+
+      - name: Install project dependencies
+        run: poetry install --with dev --no-interaction --no-ansi
+
+      - name: Run tests
+        run: poetry run task test
+
+      - name: Run lint
+        run: poetry run task lint
+
+      - name: Build documentation
+        run: poetry run task docs
