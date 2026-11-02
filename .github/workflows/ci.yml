@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   quality:
-    name: Tests, lint, and documentation
+    name: Tests, lint, and documentation build
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -35,3 +35,28 @@ jobs:
 
       - name: Build documentation
         run: poetry run task docs
+
+      - name: Upload documentation artifact
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    name: Deploy documentation
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: quality
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: true
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

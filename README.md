@@ -137,5 +137,6 @@ pre-commit run --all-files
 ## Integração contínua
 
 O GitHub Actions executa testes, lint e build estrito da documentação em pushes,
-pull requests e também pode ser acionado manualmente. A pipeline usa Python
-3.13.7 e instala as dependências do grupo `dev` com Poetry.
+pull requests e também pode ser acionado manualmente. Em pushes para `main`, após
+essas verificações passarem, publica a documentação no GitHub Pages. A pipeline
+usa Python 3.13.7 e instala as dependências do grupo `dev` com Poetry.
