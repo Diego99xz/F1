@@ -1,0 +1,7 @@
+site_name: F1
+site_description: Cliente Python para dados históricos da API OpenF1
+docs_dir: docs
+theme:
+  name: material
+nav:
+  - Início: index.md
