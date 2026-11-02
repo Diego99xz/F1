@@ -118,6 +118,22 @@ poetry run task docs
 transporte HTTP simulado e não dependem da API. `lint` executa Ruff,
 `format` aplica sua formatação e `docs` valida o site MkDocs em modo estrito.
 
+### Pre-commit
+
+Instale o [pre-commit](https://pre-commit.com/) e habilite os hooks locais:
+
+```powershell
+pipx install pre-commit
+pre-commit install
+```
+
+Os hooks executam Ruff para corrigir problemas de lint e formatar arquivos Python
+antes de cada commit. Para executá-los manualmente em todos os arquivos:
+
+```powershell
+pre-commit run --all-files
+```
+
 ## Integração contínua
 
 O GitHub Actions executa testes, lint e build estrito da documentação em pushes,
