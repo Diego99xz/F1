@@ -1,0 +1,58 @@
+[project]
+name = "f1"
+version = "0.1.0"
+description = "Python client for historical Formula 1 data from OpenF1"
+authors = [
+    {name = "Diego Melo",email = "diego.melo99xz@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "httpx (>=0.28.1,<0.29.0)",
+    "streamlit (>=1.66.1,<2.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "f1", from = "src"}]
+
+[tool.ruff]
+line-length = 88
+src = ["src"]
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--cov=f1",
+    "--cov-report=term-missing",
+    "--cov-fail-under=50",
+]
+
+[tool.coverage.run]
+source = ["f1"]
+branch = true
+
+[tool.taskipy.tasks]
+test = "pytest"
+lint = "ruff check ."
+format = "ruff format ."
+docs = "mkdocs build --strict"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.17.3,<0.18.0)",
+    "pytest (>=9.2.0,<10.0.0)",
+    "pytest-cov (>=7.1.0,<8.0.0)",
+    "taskipy (>=1.14.1,<2.0.0)",
+    "mkdocs-material (>=9.8.0,<10.0.0)"
+]
